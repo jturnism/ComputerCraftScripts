@@ -2,9 +2,6 @@
 --connect modem to any computer side, connect modem to Activating reactor for power production
 reactor = peripheral.wrap("BiggerReactors_Reactor_0")
 
---something
-strbattpercent = ""
-
 --fuction to get reactor active status and return true or false depending on status
 function getactive()
     local activestatus = reactor.active()
@@ -15,17 +12,13 @@ function getactive()
     end 
 end
 
+--function to get battery precent
 function getbattpercent()
-    battobj = reactor.battery()
-    battcap = battobj.capacity()
-    battstoredcap = battobj.stored()
-    strbattpercent = math.floor((battstoredcap/battcap)*100)
-    print("The battery percentage is : ", strbattpercent)
-end
-
---visuals
-function line()
-    print("---------------------------------------------------")
+    local battobj = reactor.battery()
+    local battcap = battobj.capacity()
+    local battstoredcap = battobj.stored()
+    local battpercent = tonumber(math.floor((battstoredcap/battcap)*100))
+    return("Battery is at :", battpercent "%")
 end
 
 --visuals
@@ -38,36 +31,35 @@ end
 
 while true do
     clear()
-    line()
+    print("---------------------------------------------------")
     print(getactive())
-    getbattpercent()
-    intbattpercent = tonumber(strbattpercent)
-    line()
-    if (intbattpercent<10) then
+    print(getbattpercent())
+    print("---------------------------------------------------")
+    if (intbattpercent<30) then
         reactor.setActive(true)
         print("Activating reactor for power production")
-        while (intbattpercent<90) do
+        while (intbattpercent<70) do
             clear()
-            line()
-            getactive()
-            getbattpercent()
-            line()
+            print("---------------------------------------------------")
+            print(getactive())
+            print(getbattpercent())
+            print("---------------------------------------------------")
             print("Producing Power")
-            sleep(5)
+            sleep(1)
         end
-        line()
-    elseif (intbattpercent>=10 and reactor.active()) then
+    elseif (intbattpercent>=30 and reactor.active()) then
         reactor.setActive(false)
         print("Deactivating reactor since sufficient battery capacity")
-        line()
-    elseif (intbattpercent>=10 and not reactor.active()) then
+        print("---------------------------------------------------")
+    elseif (intbattpercent>=30 and not reactor.active()) then
         reactor.setActive(false)
         print("Reactor stable and monitoring active")
-        line()
+        print("---------------------------------------------------")
     else
         print("Error")
-        print("intbattpercent : ", intbattpercent)
-        line()
+        print(getactive())
+        print(getbattpercent())
+        print("---------------------------------------------------")
     end
-    sleep(5)
+    sleep(1)
 end
