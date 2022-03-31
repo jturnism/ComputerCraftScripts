@@ -1,13 +1,20 @@
-reactor = peripheral.wrap("right")
+--latest main code in raw : https://raw.githubusercontent.com/jturnism/ComputerCraftScripts/main/reactorcontroll.lua
+--connect modem to any computer side, connect modem to Activating reactor for power production
+reactor = peripheral.wrap("BiggerReactors_Reactor_0")
+
+--something
 strbattpercent = ""
+
+--fuction to get reactor active status and return true or false depending on status
 function getactive()
-    activestatus = reactor.active()
+    local activestatus = reactor.active()
     if (activestatus) then
-        print("Reactor is active")
+        return("Reactor is active")
     else
-        print("Reactor is inactive")
+        return("Reactor is inactive")
     end 
 end
+
 function getbattpercent()
     battobj = reactor.battery()
     battcap = battobj.capacity()
@@ -15,18 +22,24 @@ function getbattpercent()
     strbattpercent = math.floor((battstoredcap/battcap)*100)
     print("The battery percentage is : ", strbattpercent)
 end
+
+--visuals
 function line()
     print("---------------------------------------------------")
 end
+
+--visuals
 function clear()
     term.setBackgroundColor(colours.black)
     term.clear()
     term.setCursorPos(1,1)
 end
+
+
 while true do
     clear()
     line()
-    getactive()
+    print(getactive())
     getbattpercent()
     intbattpercent = tonumber(strbattpercent)
     line()
