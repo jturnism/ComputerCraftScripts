@@ -18,7 +18,7 @@ function getbattpercent()
     local battcap = battobj.capacity()
     local battstoredcap = battobj.stored()
     local battpercent = tonumber(math.floor((battstoredcap/battcap)*100))
-    return("Battery is at :", battpercent "%")
+    return("Battery is at :", battpercent ,"%")
 end
 
 --visuals
