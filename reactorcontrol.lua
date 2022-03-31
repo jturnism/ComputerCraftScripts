@@ -1,4 +1,4 @@
---latest main code in raw : https://raw.githubusercontent.com/jturnism/ComputerCraftScripts/main/reactorcontroll.lua
+--latest main code in raw : https://raw.githubusercontent.com/jturnism/ComputerCraftScripts/main/reactorcontrol.lua
 --connect modem to any computer side, connect modem to reactor computer port, connect modem to monitor, connect all with network cable, rightclick each modem to activate
 
 --setup monitor for redirection (6monitors in 2x3 works best)
