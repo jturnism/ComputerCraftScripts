@@ -1,5 +1,8 @@
 --latest main code in raw : https://raw.githubusercontent.com/jturnism/ComputerCraftScripts/main/reactorcontroll.lua
---connect modem to any computer side, connect modem to Activating reactor for power production
+--connect modem to any computer side, connect modem to reactor computer port, connect modem to monitor, connect all with network cable, rightclick each modem to activate
+
+--setup monitor for redirection (6monitors in 2x3 works best)
+term.redirect(peripheral.wrap("monitor_0"))
 
 --initalize global variables
 reactor = peripheral.wrap("BiggerReactors_Reactor_0")
@@ -31,38 +34,38 @@ function clear()
     term.setCursorPos(1,1)
 end
 
-
+--main repeating code to monitor reactor
 while true do
     clear()
-    print("---------------------------------------------------")
+    print("-----------------------------")
     print(getactive())
     print(getbattpercent())
-    print("---------------------------------------------------")
+    print("-----------------------------")
     if (battpercent<30) then
         reactor.setActive(true)
         print("Activating reactor for power production")
         while (battpercent<70) do
             clear()
-            print("---------------------------------------------------")
+            print("-----------------------------")
             print(getactive())
             print(getbattpercent())
-            print("---------------------------------------------------")
+            print("-----------------------------")
             print("Producing Power")
             sleep(1)
         end
     elseif (battpercent>=30 and reactor.active()) then
         reactor.setActive(false)
         print("Deactivating reactor since sufficient battery capacity")
-        print("---------------------------------------------------")
+        print("-----------------------------")
     elseif (battpercent>=30 and not reactor.active()) then
         reactor.setActive(false)
         print("Reactor stable and monitoring active")
-        print("---------------------------------------------------")
+        print("-----------------------------")
     else
         print("Error")
         print(getactive())
         print(getbattpercent())
-        print("---------------------------------------------------")
+        print("-----------------------------")
     end
     sleep(1)
 end
