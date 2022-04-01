@@ -61,6 +61,7 @@ end
 
 --main function
 function main()
+    battery = getreactorbattpercent()
     builder = peripheral.wrap("rftoolsbuilder:builder_0")
     reactor = peripheral.wrap("BiggerReactors_Reactor_2")
     term.redirect(peripheral.wrap("monitor_3"))
@@ -80,13 +81,13 @@ function main()
             print("Producing Power for Quarry")
             sleep(1)
         end
-    elseif (getreactorbattpercent()>=30) then -- if battery is over 30%, turn off nuclear reactor as its not really needed
+    elseif (battery>=30) then -- if battery is over 30%, turn off nuclear reactor as its not really needed
         reactor.setActive(false)
         print("Deactivating reactor since sufficient battery capacity")
-    else (getreactorbattpercent()<30) -- if battery is less than 30% turn on nuclear reactor to fill up
+    else (battery<30) -- if battery is less than 30% turn on nuclear reactor to fill up
         reactor.setActive(true)
         print("Activating reactor for power production")
-        while (getreactorbattprecent()<=70) do -- continue filling up until 70%
+        while (battery<=70) do -- continue filling up until 70%
             clear()
             line()
             printreactoractive()
