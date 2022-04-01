@@ -10,9 +10,9 @@ function isbuilderactive()
     local energy = builder.getEnergy()
     local capacity = builder.getEnergyCapacity()
     if (energy == capacity) then
-        return(true)
-    else
         return(false)
+    else
+        return(true)
     end
 end
 
@@ -40,7 +40,7 @@ function getreactorbattpercent()
     local battobj = reactor.battery()
     local battcap = battobj.capacity()
     local battstoredcap = battobj.stored()
-    local battpercent = tonumber(math.floor((battstoredcap/battcap)*100))
+    local battpercent = math.floor((battstoredcap/battcap)*100)
     return(battpercent)
 end
 
@@ -80,7 +80,7 @@ while true do --loop the main code
     elseif (getbattpercent()>=30) then -- if battery is over 30%, turn off nuclear reactor as its not really needed
         reactor.setActive(false)
         print("Deactivating reactor since sufficient battery capacity")
-    else (getbattpercent()<30) -- if battery is less than 30% turn on nuclear reactor to fill up
+    elseif (getbattpercent()<30) then -- if battery is less than 30% turn on nuclear reactor to fill up
         reactor.setActive(true)
         print("Activating reactor for power production")
         while (getbattpercent()<=70) do -- continue filling up until 70%
@@ -92,8 +92,8 @@ while true do --loop the main code
             print("Producing Power")
             sleep(1)
         end
+    else
+        print("Error")
     end
     sleep(1)
 end
-
-    
