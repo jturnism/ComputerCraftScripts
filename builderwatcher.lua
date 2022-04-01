@@ -5,8 +5,8 @@ builder = peripheral.wrap("rftoolsbuilder:builder_0")
 reactor = peripheral.wrap("BiggerReactors_Reactor_2")
 term.redirect(peripheral.wrap("monitor_3"))
 
---poorly made funciton to tell if builder is active by seeing if its energy is full or not (if not then probably active, if full then probably inactive), if ends up being wrong, not too big of deal it will just charge builder/quarry until full
-function isbuilderactive()
+--function to see if builder needs any energy or if it is full
+function doesbuilderneedenergy()
     local energy = builder.getEnergy()
     local capacity = builder.getEnergyCapacity()
     if (energy == capacity) then
@@ -65,10 +65,10 @@ while true do --loop the main code
     line()
     printreactoractive()
     printreactorbattpercent()
-    if (isbuilderactive()) then -- if builder/quarry is running, nuclear reactor should be as well to power it
+    if (doesbuilderneedenergy()) then -- if builder/quarry is running, nuclear reactor should be as well to power it
         reactor.active(true)
         print("Activating reactor for power production for Quarry")
-        while (isbuilderactive()) do -- keep running until builder is not active
+        while (doesbuilderneedenergy()) do -- keep running until builder is not active
             clear()
             line()
             printreactoractive()
