@@ -81,7 +81,7 @@ function main()
     elseif (getreactorbattpercent()>=30) then -- if battery is over 30%, turn off nuclear reactor as its not really needed
         reactor.setActive(false)
         print("Deactivating reactor since sufficient battery capacity")
-    else (getreactorbattpercent()<30) then -- if battery is less than 30% turn on nuclear reactor to fill up
+    else (getreactorbattpercent()<30) -- if battery is less than 30% turn on nuclear reactor to fill up
         reactor.setActive(true)
         print("Activating reactor for power production")
         while (getreactorbattprecent()<=70) do -- continue filling up until 70%
