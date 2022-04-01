@@ -1,9 +1,8 @@
 --https://raw.githubusercontent.com/jturnism/ComputerCraftScripts/main/builderwatcher.lua
 
 --set output to monitor and set peripherals as global
-term.redirect(peripheral.wrap("monitor_3"))
-builder = peripheral.wrap("rftoolsbuilder:builder_0")
-reactor = peripheral.wrap("BiggerReactors_Reactor_2")
+
+
 
 --poorly made funciton to tell if builder is active by seeing if its energy is full or not (if not then probably active, if full then probably inactive), if ends up being wrong, not too big of deal it will just charge builder/quarry until full
 function isbuilderactive()
@@ -62,6 +61,9 @@ end
 
 --main function
 function main()
+    builder = peripheral.wrap("rftoolsbuilder:builder_0")
+    reactor = peripheral.wrap("BiggerReactors_Reactor_2")
+    term.redirect(peripheral.wrap("monitor_3"))
     clear()
     line()
     printreactoractive()
