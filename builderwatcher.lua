@@ -1,8 +1,9 @@
 --https://raw.githubusercontent.com/jturnism/ComputerCraftScripts/main/builderwatcher.lua
 
 --set output to monitor and set peripherals as global
-
-
+builder = peripheral.wrap("rftoolsbuilder:builder_0")
+reactor = peripheral.wrap("BiggerReactors_Reactor_2")
+term.redirect(peripheral.wrap("monitor_3"))
 
 --poorly made funciton to tell if builder is active by seeing if its energy is full or not (if not then probably active, if full then probably inactive), if ends up being wrong, not too big of deal it will just charge builder/quarry until full
 function isbuilderactive()
@@ -59,12 +60,7 @@ function line()
     print("-----------------------------")
 end
 
---main function
-function main()
-    battery = getreactorbattpercent()
-    builder = peripheral.wrap("rftoolsbuilder:builder_0")
-    reactor = peripheral.wrap("BiggerReactors_Reactor_2")
-    term.redirect(peripheral.wrap("monitor_3"))
+while true do --loop the main code
     clear()
     line()
     printreactoractive()
@@ -81,13 +77,13 @@ function main()
             print("Producing Power for Quarry")
             sleep(1)
         end
-    elseif (battery>=30) then -- if battery is over 30%, turn off nuclear reactor as its not really needed
+    elseif (getbattpercent()>=30) then -- if battery is over 30%, turn off nuclear reactor as its not really needed
         reactor.setActive(false)
         print("Deactivating reactor since sufficient battery capacity")
-    else (battery<30) -- if battery is less than 30% turn on nuclear reactor to fill up
+    else (getbattpercent()<30) -- if battery is less than 30% turn on nuclear reactor to fill up
         reactor.setActive(true)
         print("Activating reactor for power production")
-        while (battery<=70) do -- continue filling up until 70%
+        while (getbattpercent()<=70) do -- continue filling up until 70%
             clear()
             line()
             printreactoractive()
@@ -97,10 +93,6 @@ function main()
             sleep(1)
         end
     end
-end
-
-while true do --loop main function
-    main()
     sleep(1)
 end
 
