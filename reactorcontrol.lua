@@ -5,10 +5,10 @@
 --term.redirect(peripheral.wrap("monitor_0"))
 
 --initalize global variables
+reactor = peripheral.wrap("BiggerReactors_Reactor_0")
 
 --fuction to get reactor active status and return true or false depending on status
 function getreactoractive()
-    local reactor = peripheral.wrap("BiggerReactors_Reactor_0")
     local activestatus = reactor.active()
     if (activestatus) then
         return(true)
@@ -28,7 +28,6 @@ end
 
 --function to get reactor battery precent
 function getreactorbattpercent()
-    local reactor = peripheral.wrap("BiggerReactors_Reactor_0")
     local battobj = reactor.battery()
     local battcap = battobj.capacity()
     local battstoredcap = battobj.stored()
