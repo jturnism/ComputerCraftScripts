@@ -17,7 +17,7 @@ end
 --function to print reactor status
 function printreactoractive()
     if (getreactoractive()) then
-        print("Reactor is inactive")
+        print("Reactor is active")
     else
         print("Reactor is inactive")
     end
