@@ -53,10 +53,14 @@ while true do --loop the main code
     line()
     printreactoractive()
     printreactorbattpercent()
-    if (getreactorbattpercent()>=30) then -- if battery is over 30%, turn off nuclear reactor as its not really needed
+    if (getreactorbattpercent()>=30 and getreactoractive()) then -- if battery is over 30%, turn off nuclear reactor as its not really needed
         reactor.setActive(false)
         line()
         print("Deactivating reactor since sufficient battery capacity")
+        line()
+    elseif (getreactorbattpercent()>=30 and not getreactoractive()) then
+        line()
+        print("Monitoring active, on standby")
         line()
     elseif (getreactorbattpercent()<30) then -- if battery is less than 30% turn on nuclear reactor to fill up
         reactor.setActive(true)
